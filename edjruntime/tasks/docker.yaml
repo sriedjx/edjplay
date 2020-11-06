@@ -1,0 +1,21 @@
+---
+  - name: data container
+    docker_container:
+     name: edjruntime
+     image: docker.pkg.github.com/edjx/edjruntime/edjruntime:alpha
+     state: started
+     env_file: runtime/.env
+     exposed_ports:
+     - 8085:8085
+     - 1883:1883
+     - 9001:9001
+     - 80:80
+     - 443:443
+     - 53:53
+     - 3001:3001
+     network_mode: host
+     volumes:
+      - /root/runtime/config:/runtime/config
+      - /root/runtime/certificates:/runtime/certificates
+      - /root/runtime/storage:/runtime/storage
+     
