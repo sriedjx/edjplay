@@ -1,4 +1,0 @@
----
-- hosts: 167.71.236.176
-  roles:
-  - edjruntime
