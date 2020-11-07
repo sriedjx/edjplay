@@ -1,5 +1,6 @@
 ---
 # defaults file for edjruntime
+runtime.zip: https://test100.nyc3.digitaloceanspaces.com/assets/runtime.zip
 PACKAGES:
   - make
   - curl
