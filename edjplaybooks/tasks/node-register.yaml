@@ -1,26 +1,39 @@
 ---
 # tasks file for edjruntime
        - name: edjcli binary
-         shell: wget "{{ RUNTIME.ZIP }}" -O runtime.zip
-         register: runtime.zip
-       - name: Extract runtime.zip
+         shell: wget "{{ RUNTIME }}" -O runtime.zip
+         #register: runtime.zip
+       #- debug:
+           #msg: runtime.stdout
+       - name: Extract runtime
          unarchive:
           remote_src: yes
           src: runtime.zip
           dest: ./
           list_files: yes
          register: unzip
+       - debug:
+           msg: "{{ unzip.stdout }}"
        - name: delete runtime.zip
          shell: rm -f runtime.zip
        - name: Install CLI
          shell: sudo curl -L "{{ EDJX_BINARY }}" -o /usr/local/bin/edjx && sudo chmod +x /usr/local/bin/edjx
          register: cli
+       - debug:
+           msg: "{{ cli.stdout }}"
+       - debug:
        - name: init
          shell: edjx config init
          register: init
+       - debug:
+           msg: "{{ init.stdout }}"
+       - debug:
+           msg: "{{ init.stdout }}"
        - name: edjx login
          shell:  edjx login -u {{ username }} -p {{ password }}
          register: login
+       - debug:
+           msg: "{{ login.stdout }}"
        - name: node register
          shell: |
           ip=$(wget -q -O - ipinfo.io/ip)
@@ -31,14 +44,7 @@
           edjx node gen-env {{ CERTIFICATES }}/private.pem -o runtime/.env_user -i $ip
           sed -i '/^\s*$/d' runtime/.env
           cat runtime/.env_user >> runtime/.env
+         register: noderegister
        - debug:
-           msg: runtime.zip.stdout
-       - debug:
-           msg: unzip.stdout
-       - debug:
-           msg: cli.stdout
-       - debug:
-           msg: login.stdout
-           
-
+           msg: "{{ noderegister.stdout }}"
           
