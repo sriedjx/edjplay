@@ -1,7 +1,7 @@
 ---
 # tasks file for edjruntime
        - name: edjcli binary
-         shell: wget "{{ runtime.zip }}" -O runtime.zip
+         shell: wget "{{ RUNTIME.ZIP }}" -O runtime.zip
          register: runtime.zip
        - name: Extract runtime.zip
          unarchive:
@@ -13,7 +13,7 @@
        - name: delete runtime.zip
          shell: rm -f runtime.zip
        - name: Install CLI
-         shell: sudo curl -L "https://edjx-alpha.nyc3.digitaloceanspaces.com/edjcli/alpha/linux/amd64/edjx" -o /usr/local/bin/edjx && sudo chmod +x /usr/local/bin/edjx
+         shell: sudo curl -L "{{ EDJX_BINARY }}" -o /usr/local/bin/edjx && sudo chmod +x /usr/local/bin/edjx
          register: cli
        - name: init
          shell: edjx config init
@@ -24,11 +24,11 @@
        - name: node register
          shell: |
           ip=$(wget -q -O - ipinfo.io/ip)
-          edjx genkeys --priv runtime/certificates/private.pem --pub runtime/certificates/public.pem
-          edjx node init runtime/certificates/private.pem
-          edjx node gencsr runtime/certificates/private.pem -o runtime/certificates/csr.pem
-          edjx node createcert runtime/certificates/csr.pem -c runtime/certificates/cert.pem
-          edjx node gen-env runtime/certificates/private.pem -o runtime/.env_user -i $ip
+          edjx genkeys --priv {{ CERTIFICATES }}/private.pem --pub {{ CERTIFICATES }}/public.pem
+          edjx node init {{ CERTIFICATES }}/private.pem
+          edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
+          edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
+          edjx node gen-env {{ CERTIFICATES }}/private.pem -o runtime/.env_user -i $ip
           sed -i '/^\s*$/d' runtime/.env
           cat runtime/.env_user >> runtime/.env
        - debug:
