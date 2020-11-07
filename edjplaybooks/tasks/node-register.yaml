@@ -19,7 +19,7 @@
          shell: edjx config init
          register: init
        - name: edjx login
-         shell:  edjx login -u suman+2@edjx.io -p Hello@123
+         shell:  edjx login -u {{ username }} -p {{ password }}
          register: login
        - name: node register
          shell: |
