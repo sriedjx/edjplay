@@ -1,0 +1,13 @@
+- name: node register
+  shell: |
+          ip=$(wget -q -O - ipinfo.io/ip)
+          edjx genkeys --priv {{ CERTIFICATES }}/private.pem --pub {{ CERTIFICATES }}/public.pem
+          edjx node init {{ CERTIFICATES }}/private.pem
+          edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
+          edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
+          edjx node gen-env {{ CERTIFICATES }}/private.pem -o runtime/.env_user -i $ip
+          sed -i '/^\s*$/d' runtime/.env
+          cat runtime/.env_user >> runtime/.env
+   register: noderegister
+ - debug:
+     msg: "{{ noderegister.stdout }}"
