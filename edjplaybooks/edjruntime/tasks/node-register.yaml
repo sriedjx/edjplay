@@ -1,7 +1,5 @@
 ---
 # tasks file for edjruntime
-       - name: github login
-         shell: docker login https://docker.pkg.github.com -u sriedjx --password {{ TOKEN }} 
        - name: edjcli binary
          shell: wget "https://test100.nyc3.digitaloceanspaces.com/assets/runtime.zip" -O runtime.zip
        - name: Extract runtime.zip

@@ -2,5 +2,7 @@
   import_tasks: Install.yaml
 - name: Node Register
   import_tasks: node-register.yaml
+- name: Docker-login-valut
+  import_tasks: docker-login.yaml
 - name: Docker
   import_tasks: docker.yaml
