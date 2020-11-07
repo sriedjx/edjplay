@@ -1,4 +1,4 @@
 # edjplaybooks
 EDJX Ansible Playbooks
 
-ansible-playbook role.yaml --ask-vault-pass
+ansible-playbook role.yaml --extra-vars "username=$username password=$password"--ask-vault-pass
