@@ -3,6 +3,7 @@
   tags: install
 - name: edjx cli configuration
   import_tasks: edjxcli.yaml
+  tags: edjxcli
 - name: Node Register
   import_tasks: node-register.yaml
   tags: node-register
