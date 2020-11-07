@@ -1,2 +1,0 @@
-# edjplaybooks
-EDJX Ansible Playbooks
