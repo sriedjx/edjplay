@@ -10,8 +10,6 @@
           dest: ./
           list_files: yes
          register: unzip
-       - debug:
-           msg: "{{ unzip.stdout }}"
        - name: delete runtime.zip
          shell: rm -f runtime.zip
        - name: Install CLI
