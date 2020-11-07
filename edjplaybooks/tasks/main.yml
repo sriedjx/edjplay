@@ -1,8 +1,13 @@
 - name: Install Packages
   import_tasks: Install.yaml
+  tags: install
 - name: Node Register
   import_tasks: node-register.yaml
+  tags: node-register
 - name: Docker-login-valut
   import_tasks: docker-login.yaml
-- name: Docker
+  tags: docker-login
+- name: Docker-edjruntime 
   import_tasks: docker.yaml
+  tags: edjruntime
+  
