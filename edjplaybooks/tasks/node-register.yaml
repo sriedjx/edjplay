@@ -8,6 +8,6 @@
           edjx node gen-env {{ CERTIFICATES }}/private.pem -o runtime/.env_user -i $ip
           sed -i '/^\s*$/d' runtime/.env
           cat runtime/.env_user >> runtime/.env
-   register: noderegister
- - debug:
+  register: noderegister
+- debug:
      msg: "{{ noderegister.stdout }}"
