@@ -2,19 +2,25 @@
 # tasks file for edjruntime
        - name: edjcli binary
          shell: wget "https://test100.nyc3.digitaloceanspaces.com/assets/runtime.zip" -O runtime.zip
+         register: runtime.zip
        - name: Extract runtime.zip
          unarchive:
           remote_src: yes
           src: runtime.zip
           dest: ./
+          list_files: yes
+         register: unzip
        - name: delete runtime.zip
          shell: rm -f runtime.zip
        - name: Install CLI
          shell: sudo curl -L "https://edjx-alpha.nyc3.digitaloceanspaces.com/edjcli/alpha/linux/amd64/edjx" -o /usr/local/bin/edjx && sudo chmod +x /usr/local/bin/edjx
+         register: cli
        - name: init
          shell: edjx config init
+         register: init
        - name: edjx login
          shell:  edjx login -u suman+2@edjx.io -p Hello@123
+         register: login
        - name: node register
          shell: |
           ip=$(wget -q -O - ipinfo.io/ip)
@@ -25,3 +31,5 @@
           edjx node gen-env runtime/certificates/private.pem -o runtime/.env_user -i $ip
           sed -i '/^\s*$/d' runtime/.env
           cat runtime/.env_user >> runtime/.env
+
+          
