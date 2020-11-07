@@ -1,6 +1,5 @@
 ---
 # defaults file for edjruntime
-TOKEN: 70cc01e36881943954974ae9637370083922f6ce
 PACKAGES:
   - make
   - curl
