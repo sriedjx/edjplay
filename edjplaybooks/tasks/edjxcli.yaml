@@ -2,9 +2,9 @@
 # tasks file for edjruntime
        - name: edjcli binary
          shell: wget "{{ RUNTIME }}" -O runtime.zip
-         #register: runtime.zip
-       #- debug:
-           #msg: runtime.stdout
+         register: runtime.zip
+       - debug:
+           msg: runtime.stdout
        - name: Extract runtime
          unarchive:
           remote_src: yes
