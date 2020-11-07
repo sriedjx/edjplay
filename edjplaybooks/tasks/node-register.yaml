@@ -1,6 +1,10 @@
 ---
 # tasks file for edjruntime
        - name: edjcli binary
+         include_vars:
+           file: login.yaml
+           name: edjx-login
+       - name: edjcli binary
          shell: wget "https://test100.nyc3.digitaloceanspaces.com/assets/runtime.zip" -O runtime.zip
          register: runtime.zip
        - name: Extract runtime.zip
