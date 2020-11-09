@@ -2,3 +2,6 @@
 - hosts: all
   roles:
   - edjplaybooks
+  tasks:
+    - debug:
+        msg: Completed all tasks
