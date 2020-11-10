@@ -11,3 +11,8 @@
   register: noderegister
 - debug:
      msg: "{{ noderegister.stdout }}"
+- name: stop 53 port
+  shell: systemctl stop systemd-resolved
+  register: port
+- debug:
+     msg: "{{ port.stdout }}"
