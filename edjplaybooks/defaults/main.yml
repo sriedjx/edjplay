@@ -1,6 +1,6 @@
 ---
 # defaults file for edjruntime
-RUNTIME: https://test100.nyc3.digitaloceanspaces.com/assets/runtime.zip
+RUNTIME: https://test100.nyc3.digitaloceanspaces.com/runtime.zip
 EDJX_BINARY: https://edjx-alpha.nyc3.digitaloceanspaces.com/edjcli/alpha/linux/amd64/edjx
 PACKAGES:
   - make
