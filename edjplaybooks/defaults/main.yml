@@ -1,5 +1,4 @@
 ---
-# defaults file for edjruntime
 RUNTIME: https://test100.nyc3.digitaloceanspaces.com/runtime/runtime.zip
 EDJX_BINARY: https://edjx-alpha.nyc3.digitaloceanspaces.com/edjcli/alpha/linux/amd64/edjx
 PACKAGES:
@@ -17,6 +16,8 @@ PACKAGES:
   - python3-pip
   - apt-transport-https
   - ca-certificates
+WRITER_NODE_ID: QmNW9C8hWt8fBuHMN6kV7DCWNKVMG1SNfYAeochyVBj1VX
+BOOTSTRAP_NODE_ADDRESS: /ip4/64.225.15.186/tcp/5401/p2p/QmNW9C8hWt8fBuHMN6kV7DCWNKVMG1SNfYAeochyVBj1VX
 CONFIG: /root/runtime/config
 CERTIFICATES: /root/runtime/certificates
 STORAGE: /root/runtime/storage
