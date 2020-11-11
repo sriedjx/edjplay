@@ -9,7 +9,7 @@
           edjx node init {{ CERTIFICATES }}/private.pem
           edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
           edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
-          edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy
+          edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy --{{ BOOTSTRAP }}
           sed -i '/^\s*$/d' runtime/.env
           cd runtime 
           edjx node start
