@@ -7,10 +7,10 @@
 - name: Node Register
   import_tasks: node-register.yaml
   tags: node-register
-- name: Docker-login-valut
-  import_tasks: docker-login.yaml
-  tags: docker-login
-- name: Docker-edjruntime 
-  import_tasks: docker.yaml
-  tags: edjruntime
-  
+  #- name: Docker-login-valut
+  #import_tasks: docker-login.yaml
+  #ignore_errors: yes
+  #tags: docker-login
+  #- name: Docker-edjruntime 
+  #import_tasks: docker.yaml
+  #tags: edjruntime
