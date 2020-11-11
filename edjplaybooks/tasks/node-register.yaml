@@ -1,3 +1,10 @@
+- name: stop 53 port
+  shell: systemctl stop systemd-resolved
+  register: port
+- debug:
+     msg: "{{ port.stdout }}"
+- name: update dns record
+  shell: echo "nameserver 1.1.1.1" > /etc/resolv.conf
 - name: node register
   shell: |
           ip=$(wget -q -O - ipinfo.io/ip)
@@ -5,14 +12,10 @@
           edjx node init {{ CERTIFICATES }}/private.pem
           edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
           edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
-          edjx node gen-env {{ CERTIFICATES }}/private.pem -o runtime/.env_user -i $ip
+          edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy
           sed -i '/^\s*$/d' runtime/.env
-          cat runtime/.env_user >> runtime/.env
+          cd runtime 
+          edjx node start
   register: noderegister
 - debug:
      msg: "{{ noderegister.stdout }}"
-- name: stop 53 port
-  shell: systemctl stop systemd-resolved
-  register: port
-- debug:
-     msg: "{{ port.stdout }}"
