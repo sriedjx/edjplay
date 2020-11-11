@@ -1,8 +1,5 @@
-- name: stop 53 port
+- name: stop dns service
   shell: systemctl stop systemd-resolved
-  register: port
-- debug:
-     msg: "{{ port.stdout }}"
 - name: update dns record
   shell: echo "nameserver 1.1.1.1" > /etc/resolv.conf
 - name: node register
