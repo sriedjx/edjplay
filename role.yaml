@@ -1,7 +1,10 @@
 ---
-- hosts: all
+- hosts: dryrun1
+  vars_prompt:
+     - name: BOOTSTRAP
+       prompt: If you want run with bootstrap then type bootstrap else press ENTER
   roles:
   - edjplaybooks
   tasks:
     - debug:
-        msg: Completed all tasks
+        msg: Completed all tasks- {{ BOOTSTRAP }}
