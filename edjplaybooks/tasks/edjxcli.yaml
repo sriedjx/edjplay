@@ -16,7 +16,7 @@
          shell: sudo curl -L "{{ EDJX_BINARY }}" -o /usr/local/bin/edjx && sudo chmod +x /usr/local/bin/edjx
          register: cli
        - name: init
-         shell: edjx config init
+         shell: edjx config init -d "{{ DOMAIN }}"
          register: init
        - debug:
            msg: "{{ init.stdout }}"
