@@ -11,10 +11,21 @@
           edjx node init {{ CERTIFICATES }}/private.pem
           edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
           edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
-          edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy --{{ BOOTSTRAP }}
-          sed -i '/^\s*$/d' runtime/.env
-          cd runtime 
-          edjx node start
   register: noderegister
+- name: run with dns,bootstrap,greedy | YES
+  shell: |
+          ip=$(wget -q -O - ipinfo.io/ip)
+          edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy --bootstrap
+  when: bootstrap == "yes"
+- name: run with dns,bootstrap,greedy | NO
+  shell: |
+          ip=$(wget -q -O - ipinfo.io/ip)
+          edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy
+  when: bootstrap == "no"
+- name: Start the node
+  shell: |
+          sed -i '/^\s*$/d' runtime/.env
+          cd runtime
+          edjx node start
 - debug:
      msg: "{{ noderegister.stdout }}"
