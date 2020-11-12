@@ -1,10 +1,12 @@
 ---
-- hosts: dryrun1
+- hosts: demo
   vars_prompt:
-     - name: BOOTSTRAP
-       prompt: If you want run with bootstrap then type bootstrap else press ENTER
+     - name: bootstrap
+       prompt: Do you want to run with bootstrap? yes|no
+     - name: DOMAIN
+       prompt: Enter Domain Name(default:validate.edjx.network)
   roles:
   - edjplaybooks
   tasks:
     - debug:
-        msg: Completed all tasks- {{ BOOTSTRAP }}
+        msg: Completed all tasks
