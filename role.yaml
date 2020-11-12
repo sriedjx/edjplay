@@ -5,6 +5,10 @@
        prompt: Do you want to run with bootstrap? yes|no
      - name: DOMAIN
        prompt: Enter Domain Name(default:validate.edjx.network)
+     - name: username
+       prompt: Enter edjconsole username
+     - name: password
+       prompt: Enter password
   roles:
   - edjplaybooks
   tasks:
