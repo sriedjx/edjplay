@@ -1,6 +1,7 @@
 ---
 RUNTIME: https://test100.nyc3.digitaloceanspaces.com/runtime/runtime.zip
 EDJX_BINARY: https://edjx-alpha.nyc3.digitaloceanspaces.com/edjcli/alpha/linux/amd64/edjx
+DOMAIN: validate.edjx.network
 PACKAGES:
   - make
   - curl
