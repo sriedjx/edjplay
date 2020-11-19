@@ -17,11 +17,15 @@
           edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
   register: noderegister
 - name: run with dns,bootstrap,greedy | YES
+  become: yes
+  become_user: edjruntime
   shell: |
           ip=$(wget -q -O - ipinfo.io/ip)
           edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy --bootstrap
   when: bootstrap == "yes"
 - name: run with dns,bootstrap,greedy | NO
+  become: yes
+  become_user: edjruntime
   shell: |
           ip=$(wget -q -O - ipinfo.io/ip)
           edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy
