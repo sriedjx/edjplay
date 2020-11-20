@@ -33,6 +33,8 @@
        - debug:
            msg: "{{ init.stdout }}"
        - name: edjx login
+         become: yes
+         become_user: edjruntime
          shell:  edjx login -u {{ username }} -p {{ password }}
          register: login
        - debug:
