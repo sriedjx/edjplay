@@ -1,0 +1,13 @@
+- name: get WRITER_NODE_ID
+  become: yes
+  become_user: edjruntime
+  ignore_errors: yes
+  command: edjx node get-env NODE_ID
+  when: "'writer' in group_names"
+  register: WRITER_NODE_ID
+- name: copy WRITER_NODE_ID
+  local_action:
+      module: copy
+      content: "WRITER_NODE_ID: {{ WRITER_NODE_ID.stdout }}"
+      dest: "var2.yaml"
+  when: "'writer' in group_names"

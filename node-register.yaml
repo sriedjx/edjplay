@@ -1,0 +1,59 @@
+- name: stop dns service
+  become: yes
+  shell: systemctl stop systemd-resolved
+  tags: dnsservice
+- name: update dns record
+  become: yes
+  shell: echo "nameserver 1.1.1.1" > /etc/resolv.conf
+  tags: dnsrecord
+- name: node register
+  become: yes
+  become_user: edjruntime
+  shell: |
+          ip=$(wget -q -O - ipinfo.io/ip)
+          edjx genkeys --priv {{ CERTIFICATES }}/private.pem --pub {{ CERTIFICATES }}/public.pem
+          edjx node init {{ CERTIFICATES }}/private.pem
+          edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
+          edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
+          # edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy --bootstrap
+  register: noderegister
+- name: create writer NODE
+  become: yes
+  become_user: edjruntime
+  command: edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env --writer
+  when: "'writer' in group_names"
+- name: get WRITER_NODE_ID
+  become: yes
+  become_user: edjruntime
+  command: edjx node get-env NODE_ID
+  when: "'writer' in group_names"
+  register: WRITER_NODE_ID
+- name: bootstrap address
+  become: yes
+  become_user: edjruntime
+  command: edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} --bootstrap
+  when: "'bootstrap' in group_names"
+- name: get BOOTSTRAP_NODE_ADDRESS
+  become: yes
+  become_user: edjruntime
+  command: edjx node get-env EDJNET_LISTEN_ADDRS
+  when: "'bootstrap' in group_names"
+  register: BOOTSTRAP_NODE_ADDRESS
+- name: normal node
+  become: yes
+  become_user: edjruntime
+  command: edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy 
+  when: "'normal' in group_names"
+  register: NORMAL
+- name: add user to docker group
+  command: sudo usermod -aG docker edjruntime
+- name: node start
+  become: yes
+  become_user: edjruntime
+  args:
+     chdir: /home/edjruntime/.edjx
+  shell: | 
+        sed -i '/^\s*$/d' runtime/.env
+        edjx node start
+- debug:
+     msg: "{{ noderegister.stdout }}"

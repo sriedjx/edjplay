@@ -1,5 +1,6 @@
 ---
-- hosts: demo
+- hosts: all
+  gather_facts: false
   vars_prompt:
      - name: DOMAIN
        prompt: Enter Domain Name(default:validate.edjx.network)

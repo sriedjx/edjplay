@@ -1,16 +1,24 @@
 - name: Install Packages
-  import_tasks: Install.yaml
+  import_tasks: install.yaml
   tags: install
 - name: edjx cli configuration
   import_tasks: edjxcli.yaml
   tags: edjxcli
-- name: Node Register
+- name: Node Register with Writer
   import_tasks: node-register.yaml
   tags: node-register
-  #- name: Docker-login-valut
-  #import_tasks: docker-login.yaml
-  #ignore_errors: yes
-  #tags: docker-login
-  #- name: Docker-edjruntime 
-  #import_tasks: docker.yaml
-  #tags: edjruntime
+- name: get WRITERID
+  import_tasks: nodeid.yaml
+  tags: writerid
+- name: Bootstrap
+  import_tasks: bootstrap.yaml
+  tags: bootstrap
+- name: bootaddr
+  import_tasks: bootaddr.yaml
+  tags: bootaddr
+- name: edjruntime
+  import_tasks: normal.yaml
+  tags: normal.yaml
+- name: start 
+  import_tasks: start.yaml
+  tags: start

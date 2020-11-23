@@ -15,17 +15,9 @@
           edjx node init {{ CERTIFICATES }}/private.pem
           edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
           edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
-          edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w {{ WRITER_NODE_ID }} -b {{ BOOTSTRAP_NODE_ADDRESS }} --dns --greedy --bootstrap
   register: noderegister
-- name: add user to docker group
-  command: sudo usermod -aG docker edjruntime
-- name: node start
+- name: create writer NODE
   become: yes
   become_user: edjruntime
-  args:
-     chdir: /home/edjruntime/.edjx
-  shell: | 
-        sed -i '/^\s*$/d' runtime/.env
-        edjx node start
-- debug:
-     msg: "{{ noderegister.stdout }}"
+  command: edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env {{ flags }}
+  when: "'writer' in group_names"

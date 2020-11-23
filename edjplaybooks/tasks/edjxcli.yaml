@@ -9,6 +9,8 @@
            state: present
            append: yes
          become: yes
+       - name: add user to docker group
+         command: sudo usermod -aG docker edjruntime
        - name: ensure edjx dir exists
          file:
           path: /home/edjruntime/.edjx

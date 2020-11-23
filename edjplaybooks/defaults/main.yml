@@ -18,7 +18,7 @@ PACKAGES:
   - python3-pip
   - apt-transport-https
   - ca-certificates
-WRITER_NODE_ID: QmNW9C8hWt8fBuHMN6kV7DCWNKVMG1SNfYAeochyVBj1VX
-BOOTSTRAP_NODE_ADDRESS: /ip4/64.225.15.186/tcp/5401/p2p/QmNW9C8hWt8fBuHMN6kV7DCWNKVMG1SNfYAeochyVBj1VX
+    #WRITER_NODE_ID: QmNW9C8hWt8fBuHMN6kV7DCWNKVMG1SNfYAeochyVBj1VX
+    #BOOTSTRAP_NODE_ADDRESS: /ip4/64.225.15.186/tcp/5401/p2p/QmNW9C8hWt8fBuHMN6kV7DCWNKVMG1SNfYAeochyVBj1VX
 CERTIFICATES: /home/edjruntime/.edjx/runtime/certificates
 WORKDIR: /home/edjruntime/.edjx

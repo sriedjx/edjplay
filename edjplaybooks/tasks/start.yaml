@@ -1,0 +1,10 @@
+- name: node start
+  become: yes
+  become_user: edjruntime
+  args:
+     chdir: /home/edjruntime/.edjx
+  shell: |
+        sed -i '/^\s*$/d' runtime/.env
+        edjx node start
+- debug:
+     msg: "{{ noderegister.stdout }}"

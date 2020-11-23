@@ -1,0 +1,9 @@
+- include_vars: var2.yaml
+  when: "'bootstrap' in group_names"
+- name: bootstrap address
+  become: yes
+  become_user: edjruntime
+  shell: |
+       ip=$(wget -q -O - ipinfo.io/ip)
+       edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w "{{ WRITER_NODE_ID }}" "{{ flags }}"
+  when: "'bootstrap' in group_names"
