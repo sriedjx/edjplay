@@ -1,9 +1,21 @@
-- include_vars: var2.yaml
-  when: "'bootstrap' in group_names"
+---
+- name: get WRITER_NODE_ID
+  become: yes
+  become_user: edjruntime
+  ignore_errors: yes
+  command: edjx node get-env NODE_ID
+  when: "'writer' in group_names"
+  register: writer
+- debug:
+       msg: "{{ writer.stdout }}"
+  when: "'writer' in group_names"
+- set_fact:
+     WRITER_NODE_ID: "{{ writer.stdout }}"
+  when: "'writer' in group_names"
 - name: bootstrap address
   become: yes
   become_user: edjruntime
   shell: |
        ip=$(wget -q -O - ipinfo.io/ip)
-       edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w "{{ WRITER_NODE_ID }}" "{{ flags }}"
+       edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w "{{ hostvars[groups['writer'][0]].WRITER_NODE_ID }}" "{{ flags }}"
   when: "'bootstrap' in group_names"
