@@ -32,8 +32,6 @@
          become_user: edjruntime
          shell: edjx config init -d "{{ DOMAIN }}"
          register: init
-       - debug:
-           msg: "{{ init.stdout }}"
        - name: edjx login
          become: yes
          become_user: edjruntime
