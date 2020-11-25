@@ -7,15 +7,15 @@
 - name: Node Register with Writer
   import_tasks: node-register.yaml
   tags: node-register
-- name: get WRITERID
-  import_tasks: nodeid.yaml
-  tags: writerid
+#- name: get WRITERID
+#  import_tasks: nodeid.yaml
+#  tags: writerid
 - name: Bootstrap
   import_tasks: bootstrap.yaml
   tags: bootstrap
-- name: bootaddr
-  import_tasks: bootaddr.yaml
-  tags: bootaddr
+#- name: bootaddr
+#  import_tasks: bootaddr.yaml
+#  tags: bootaddr
 - name: edjruntime
   import_tasks: normal.yaml
   tags: normal.yaml
