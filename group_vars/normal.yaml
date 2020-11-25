@@ -1,2 +1,1 @@
-flag1: --dns
-flag2: --greedy
+flags: --dns --greedy
