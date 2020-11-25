@@ -6,5 +6,6 @@
   shell: |
         sed -i '/^\s*$/d' runtime/.env
         edjx node start
+  register: nodestart
 - debug:
-     msg: "{{ noderegister.stdout }}"
+     msg: Edjruntime deployed successfully
