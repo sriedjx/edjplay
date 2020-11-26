@@ -12,6 +12,3 @@
        prompt: Enter password
   roles:
   - edjplaybooks
-  tasks:
-    - debug:
-        msg: Completed all tasks
