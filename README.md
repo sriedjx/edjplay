@@ -1,13 +1,12 @@
 # edjplaybooks
 ###### EDJX Ansible Playbooks <br>
-update target nodes ip's inside inventory file under group_names bas below<br>
-group_names should be as below
+update target nodes ip's inside inventory file under group_names as below<br>
 ```
-[writer]
+>[writer]
 *.*.*.*
-[bootstrap]
+>[bootstrap]
 *.*.*.*
-[runtime]
+>[runtime]
 *.*.*.*
 ```
 
