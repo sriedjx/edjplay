@@ -4,6 +4,9 @@
   shell: BOOTSTRAP_ADDRESS=$(edjx node get-env EDJNET_LISTEN_ADDRS)/p2p/$(edjx node get-env NODE_ID) && echo $BOOTSTRAP_ADDRESS
   register: BOOTSTRAP_NODE_ADDRESS
   when: "'bootstrap' in group_names"
+- debug:
+    msg: "{{ BOOTSTRAP_NODE_ADDRESS.stdout }}"
+  when: "'bootstrap' in group_names"
 - set_fact:
       BOOTSTRAP_NODE_ADDRESS: "{{ BOOTSTRAP_NODE_ADDRESS.stdout }}"
   when: "'bootstrap' in group_names"
