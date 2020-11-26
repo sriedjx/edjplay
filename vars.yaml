@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+     - name: check var
+       shell: echo "{{ flags }}" "{{ name }}"
+       register: flag
+     - debug:
+          msg: "{{ flag.stdout }}"
