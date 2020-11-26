@@ -12,7 +12,7 @@
   shell: |
           ip=$(wget -q -O - ipinfo.io/ip)
           edjx genkeys --priv {{ CERTIFICATES }}/private.pem --pub {{ CERTIFICATES }}/public.pem
-          edjx node init {{ CERTIFICATES }}/private.pem
+          edjx node init {{ CERTIFICATES }}/private.pem -i $ip
           edjx node gencsr {{ CERTIFICATES }}/private.pem -o {{ CERTIFICATES }}/csr.pem
           edjx node createcert {{ CERTIFICATES }}/csr.pem -c {{ CERTIFICATES }}/cert.pem
   register: noderegister
