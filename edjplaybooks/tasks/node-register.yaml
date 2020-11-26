@@ -19,5 +19,7 @@
 - name: create writer NODE
   become: yes
   become_user: edjruntime
-  command: edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env {{ flags }}
+  shell: |
+    ip=$(wget -q -O - ipinfo.io/ip) 
+    edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env {{ flags }}
   when: "'writer' in group_names"
