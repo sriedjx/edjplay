@@ -1,7 +1,7 @@
 ---
 - name: get WRITER_NODE_ID
   become: yes
-  become_user: edjruntime
+  become_user: "{{ USER }}"
   ignore_errors: yes
   command: edjx node get-env NODE_ID
   when: "'writer' in group_names"
@@ -11,7 +11,7 @@
   when: "'writer' in group_names"
 - name: bootstrap address
   become: yes
-  become_user: edjruntime
+  become_user: "{{ USER }}"
   shell: |
        ip=$(wget -q -O - ipinfo.io/ip)
        edjx node gen-env {{ CERTIFICATES }}/private.pem -i $ip -o runtime/.env -w "{{ hostvars[groups['writer'][0]].WRITER_NODE_ID }}" "{{ flags }}"
